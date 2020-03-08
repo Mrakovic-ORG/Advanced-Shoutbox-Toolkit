@@ -21,7 +21,6 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
 console.clear();
 console.warn('%cWelcome to Tesla\'s Cracked.to script, to enable script please press CTRL+0', 'background: linear-gradient(red, blue, white);font-size: 15px;line-height: 2;');
 
@@ -123,14 +122,18 @@ document.body.addEventListener('keydown', function (k) {
         return console.warn('User exited from prompt.');
       }
 
-      for (i; i < msg_num; ++i) {
+      var int = setInterval(function () {
         Shoutbox.emit(0x02, {
           message: msg,
           room: Shoutbox.userRoom
         });
-      }
+        ++count;
 
-      console.warn('Sending done, total messages sent: ' + i);
+        if (count >= msg_num) {
+          clearInterval(int);
+          console.warn('Sending done, total messages sent: ' + count);
+        }
+      }, 1100);
     }
 
     if (k.altKey && k.ctrlKey && k.key === '4') {
